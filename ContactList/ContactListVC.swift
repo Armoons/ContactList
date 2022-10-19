@@ -8,9 +8,9 @@
 import UIKit
 
 class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let parser = Parser()
 
-    
-    
     @IBOutlet weak var tableView: UITableView!
 
     let cellID = "ContactsTableCell"
@@ -26,7 +26,6 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.delegate = self
     }
     
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 3
@@ -38,12 +37,14 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         cell.avatar.image = UIImage(named: "testImage")
         
         return cell
-        
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        parser.getInfo()
+        
+    }
 }

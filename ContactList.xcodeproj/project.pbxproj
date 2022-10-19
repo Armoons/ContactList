@@ -16,6 +16,8 @@
 		AE70B40B29004AF2002E00E5 /* ContactsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE70B40929004AF2002E00E5 /* ContactsTableCell.swift */; };
 		AE70B40C29004AF2002E00E5 /* ContactsTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE70B40A29004AF2002E00E5 /* ContactsTableCell.xib */; };
 		AE70B40E290050AE002E00E5 /* ContactListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE70B40D290050AE002E00E5 /* ContactListVC.swift */; };
+		AE70B41029005AD0002E00E5 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE70B40F29005AD0002E00E5 /* Parser.swift */; };
+		AE70B41229005AE6002E00E5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE70B41129005AE6002E00E5 /* UserModel.swift */; };
 		EE78E6495AE9E13FF6E69B76 /* Pods_ContactList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97661F5BB6415B0EBDA89DD0 /* Pods_ContactList.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 		AE70B40929004AF2002E00E5 /* ContactsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableCell.swift; sourceTree = "<group>"; };
 		AE70B40A29004AF2002E00E5 /* ContactsTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsTableCell.xib; sourceTree = "<group>"; };
 		AE70B40D290050AE002E00E5 /* ContactListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListVC.swift; sourceTree = "<group>"; };
+		AE70B40F29005AD0002E00E5 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		AE70B41129005AE6002E00E5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				AE70B3F229004456002E00E5 /* SceneDelegate.swift */,
 				AE70B40929004AF2002E00E5 /* ContactsTableCell.swift */,
 				AE70B40D290050AE002E00E5 /* ContactListVC.swift */,
+				AE70B40F29005AD0002E00E5 /* Parser.swift */,
+				AE70B41129005AE6002E00E5 /* UserModel.swift */,
 				AE70B40A29004AF2002E00E5 /* ContactsTableCell.xib */,
 				AE70B3F629004456002E00E5 /* Main.storyboard */,
 				AE70B3FC29004456002E00E5 /* Assets.xcassets */,
@@ -199,7 +205,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE70B3FB29004456002E00E5 /* ContactList.xcdatamodeld in Sources */,
+				AE70B41229005AE6002E00E5 /* UserModel.swift in Sources */,
 				AE70B3F129004456002E00E5 /* AppDelegate.swift in Sources */,
+				AE70B41029005AD0002E00E5 /* Parser.swift in Sources */,
 				AE70B3F329004456002E00E5 /* SceneDelegate.swift in Sources */,
 				AE70B40B29004AF2002E00E5 /* ContactsTableCell.swift in Sources */,
 				AE70B40E290050AE002E00E5 /* ContactListVC.swift in Sources */,

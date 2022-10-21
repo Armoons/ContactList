@@ -6,5 +6,7 @@ target 'ContactList' do
   use_frameworks!
 
   # Pods for ContactList
+  pod 'Kingfisher', '~> 7.0'
+
 
 end

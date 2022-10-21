@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
+
 
 class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let parser = Parser()
+    var usersArray = [UserModel]()
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -24,17 +27,39 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.register(nib, forCellReuseIdentifier: cellID)
         tableView.dataSource = self
         tableView.delegate = self
+        parser.completion = { model in
+            print("completionStarted")
+
+            self.usersArray.append(model)
+            print("model name", model.name)
+
+            self.updateTable()
+            
+            print("completionFinished")
+        }
+
+    }
+    
+    func updateTable() {
+        print("reloadData")
+        tableView.reloadData()
+        print("isEmpty", usersArray.isEmpty)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 3
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! ContactsTableCell
-        cell.name.text = "TEST"
-        cell.avatar.image = UIImage(named: "testImage")
+        parser.getInfo()
+        if !usersArray.isEmpty {
+            print("nameOfCell", usersArray[indexPath.row].name.first)
+            cell.name.text = usersArray[indexPath.row].name.first + usersArray[indexPath.row].name.last
+            let avaUrl = URL(string: usersArray[indexPath.row].picture.thumbnail)
+            cell.avatar.kf.setImage(with: avaUrl)
+        }
         
         return cell
     }

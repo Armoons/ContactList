@@ -30,13 +30,16 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         parser.completion = { model in
             print("completionStarted")
 
-            self.usersArray.append(model)
-            print("model name", model.name)
+            self.usersArray.append(contentsOf: model)
+            print("model name", model.first?.name)
 
             self.updateTable()
             
             print("completionFinished")
         }
+        
+        parser.getInfo()
+
 
     }
     
@@ -48,17 +51,22 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return usersArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! ContactsTableCell
-        parser.getInfo()
+//        parser.getInfo()
         if !usersArray.isEmpty {
             print("nameOfCell", usersArray[indexPath.row].name.first)
             cell.name.text = usersArray[indexPath.row].name.first + usersArray[indexPath.row].name.last
             let avaUrl = URL(string: usersArray[indexPath.row].picture.thumbnail)
             cell.avatar.kf.setImage(with: avaUrl)
+        }
+        
+        if indexPath.row == usersArray.count - 4{
+            parser.getInfo()
+            tableView.reloadData()
         }
         
         return cell
@@ -69,7 +77,7 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        parser.getInfo()
+//        parser.getInfo()
         
     }
 }

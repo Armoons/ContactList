@@ -9,8 +9,8 @@ import Foundation
 
 class Parser {
     
-    let url = URL(string: "https://randomuser.me/api/?inc=gender,name,picture,dob,email,location")
-    var completion: ((UserModel)->())?
+    let url = URL(string: "https://randomuser.me/api/?inc=gender,name,picture,dob,email,location&results=15")
+    var completion: (([UserModel])->())?
     
     func getInfo() {
         guard let url = url else { return }
@@ -33,7 +33,7 @@ class Parser {
 //                    print(i.picture)
 //                }
                 DispatchQueue.main.async {
-                    guard let info = userInfo.results.first else { return }
+                    let info = userInfo.results 
                     self.completion?(info)
                 }
             }  catch {

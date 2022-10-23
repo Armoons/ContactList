@@ -10,7 +10,7 @@ import Foundation
 class Parser {
     
     let url = URL(string: "https://randomuser.me/api/?inc=gender,name,picture,dob,email,location&results=15")
-    var completion: (([UserModel])->())?
+    var completion: (([UserParserModel])->())?
     
     func getInfo() {
         guard let url = url else { return }
@@ -23,7 +23,7 @@ class Parser {
             guard let data = data else { return }
             
             do {
-                let userInfo = try JSONDecoder().decode(ParserModel.self, from: data)
+                let userInfo = try JSONDecoder().decode(ParserModelArray.self, from: data)
 //                for i in userInfo.results {
 //                    print(i.name)
 //                    print(i.dob)

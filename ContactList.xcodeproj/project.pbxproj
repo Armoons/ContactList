@@ -18,6 +18,8 @@
 		AE70B40E290050AE002E00E5 /* ContactListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE70B40D290050AE002E00E5 /* ContactListVC.swift */; };
 		AE70B41029005AD0002E00E5 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE70B40F29005AD0002E00E5 /* Parser.swift */; };
 		AE70B41229005AE6002E00E5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE70B41129005AE6002E00E5 /* UserModel.swift */; };
+		AE9FD06E2905AA6F0014F1F3 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9FD06C2905AA6F0014F1F3 /* User+CoreDataClass.swift */; };
+		AE9FD06F2905AA6F0014F1F3 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9FD06D2905AA6F0014F1F3 /* User+CoreDataProperties.swift */; };
 		EE78E6495AE9E13FF6E69B76 /* Pods_ContactList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97661F5BB6415B0EBDA89DD0 /* Pods_ContactList.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,8 @@
 		AE70B40D290050AE002E00E5 /* ContactListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListVC.swift; sourceTree = "<group>"; };
 		AE70B40F29005AD0002E00E5 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		AE70B41129005AE6002E00E5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		AE9FD06C2905AA6F0014F1F3 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		AE9FD06D2905AA6F0014F1F3 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 		AE70B3EF29004456002E00E5 /* ContactList */ = {
 			isa = PBXGroup;
 			children = (
+				AE9FD061290590160014F1F3 /* UserCoreData */,
 				AE70B3F029004456002E00E5 /* AppDelegate.swift */,
 				AE70B3F229004456002E00E5 /* SceneDelegate.swift */,
 				AE70B40929004AF2002E00E5 /* ContactsTableCell.swift */,
@@ -104,6 +109,15 @@
 				AE70B3F929004456002E00E5 /* ContactList.xcdatamodeld */,
 			);
 			path = ContactList;
+			sourceTree = "<group>";
+		};
+		AE9FD061290590160014F1F3 /* UserCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AE9FD06C2905AA6F0014F1F3 /* User+CoreDataClass.swift */,
+				AE9FD06D2905AA6F0014F1F3 /* User+CoreDataProperties.swift */,
+			);
+			path = UserCoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,7 +242,9 @@
 				AE70B41029005AD0002E00E5 /* Parser.swift in Sources */,
 				AE70B3F329004456002E00E5 /* SceneDelegate.swift in Sources */,
 				AE70B40B29004AF2002E00E5 /* ContactsTableCell.swift in Sources */,
+				AE9FD06E2905AA6F0014F1F3 /* User+CoreDataClass.swift in Sources */,
 				AE70B40E290050AE002E00E5 /* ContactListVC.swift in Sources */,
+				AE9FD06F2905AA6F0014F1F3 /* User+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

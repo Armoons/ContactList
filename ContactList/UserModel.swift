@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ParserModel: Decodable {
-    let results: [UserModel]
+struct ParserModelArray: Decodable {
+    let results: [UserParserModel]
 }
 
 struct userName: Decodable {
@@ -34,7 +34,7 @@ struct userPicture: Decodable {
     let thumbnail: String
 }
 
-class UserModel: Decodable {
+class UserParserModel: Decodable {
     var gender: String
     var name: userName
     var location: userLocation

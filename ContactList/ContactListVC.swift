@@ -49,7 +49,7 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.reloadData()
     }
     
-    func loadNextPage() {
+    private func loadNextPage() {
         parser.getInfo { [weak self] result in
             guard let self else { return }
             
@@ -66,7 +66,7 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    func loadCachedData() {
+    private func loadCachedData() {
         userModelsArray = (try? context.fetch(User.fetchRequest())) ?? []
         tableView.reloadData()
     }
@@ -79,7 +79,6 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellID) as? ContactsTableCell else { return UITableViewCell() }
         
         let model = userModelsArray[indexPath.row]
-
         cell.name.text = model.name?.replacingOccurrences(of: "@", with: " ")
         cell.avatar.kf.setImage(with: model.pictureURL)
         

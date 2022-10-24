@@ -11,7 +11,7 @@ import Kingfisher
 
 class UserCardView: UIView {
     
-    var userInfo: User = User()
+    private var userInfo: User = User()
     var completion: ((UIImageView)->())?
     
     override init(frame: CGRect) {
@@ -25,7 +25,7 @@ class UserCardView: UIView {
         self.setupConstraints()
     }
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    @objc private func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
         let tappedImage = tapGestureRecognizer.view as! UIImageView
         completion!(tappedImage)
@@ -106,7 +106,7 @@ class UserCardView: UIView {
         return stack
     }()
     
-    func setupUI() {
+    private func setupUI() {
         
         // ava
         if self.userInfo.gender == "female" {
@@ -120,9 +120,7 @@ class UserCardView: UIView {
         nameLabel.text?.append(userInfo.name!.replacingOccurrences(of: "@", with: " "))
         
         //dob
-        
         let age = userInfo.dob?.split(separator: "@")
-        
         let start = (userInfo.dob?.index(userInfo.dob!.startIndex, offsetBy: 3))!
         let end = userInfo.dob?.index(userInfo.dob!.startIndex, offsetBy: 13)
         let result = userInfo.dob?[start..<end!].split(separator: "-")
@@ -138,7 +136,7 @@ class UserCardView: UIView {
             avaImageView.kf.setImage(with: userInfo.pictureURL)
         }
         
-        //location
+        //time (пока что не разобрался с Date, чтобы написать красиво)
         var offset = userInfo.location ?? ""
         let utcDateFormatter = DateFormatter()
         utcDateFormatter.dateStyle = .medium
@@ -148,10 +146,10 @@ class UserCardView: UIView {
         let UTC = Date()
         
         let dateFormatter = DateFormatter()
-        //        let sign = offset.substring(from: offset.startIndex)
         let index = offset.index(offset.startIndex, offsetBy: 0)
         let sign = offset.remove(at:index)
         dateFormatter.dateFormat = "HH:mm"
+        
         var splittedUtc = utcDateFormatter.string(from: UTC).split(separator: ":")
         var splittedOffset = offset.split(separator: ":")
         var timeMinute = 0
@@ -160,10 +158,6 @@ class UserCardView: UIView {
         let utsMinutes = Int(splittedUtc[1])!
         let offsetHours = Int(splittedOffset[0])!
         let offsetMinutes = Int(splittedOffset[1])!
-        
-        print("UTC", splittedUtc)
-        print("sign", sign)
-        print("timeWithoutSign", splittedOffset)
         
         if sign == "+" {
             if utsMinutes + offsetMinutes >= 60 {
@@ -181,7 +175,6 @@ class UserCardView: UIView {
                 timeHours = (24 + utsHours - offsetHours) % 24
             }
         }
-        print((20-30))
         if timeMinute < 10 && timeHours < 10{
             locationLabel.text?.append("0\(timeHours):0\(timeMinute)")
         } else if timeMinute < 10{
@@ -190,52 +183,15 @@ class UserCardView: UIView {
             locationLabel.text?.append("0\(timeHours):\(timeMinute)")
         } else {
             locationLabel.text?.append("\(timeHours):\(timeMinute)")
-
         }
-
-        
-        
     }
-    
-    func localToUTC(dateStr: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.calendar = Calendar.current
-        dateFormatter.timeZone = TimeZone.current
-        
-        if let date = dateFormatter.date(from: dateStr) {
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            dateFormatter.dateFormat = "H:mm:ss"
-        
-            return dateFormatter.string(from: date)
-        }
-        return nil
-    }
-    
-    func utcToLocal(dateStr: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "H:mm:ss"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        
-        if let date = dateFormatter.date(from: dateStr) {
-            dateFormatter.timeZone = TimeZone.current
-            dateFormatter.dateFormat = "h:mm a"
-        
-            return dateFormatter.string(from: date)
-        }
-        return nil
-    }
-    
     
     func sendInfo(setUser: User) {
         userInfo = setUser
-        print("USERINFO", userInfo)
         self.setupUI()
-        
     }
-
     
-    func setupConstraints() {
+    private func setupConstraints() {
         for i in [avaImageView, vertStackView] {
             self.addSubview(i)
         }
@@ -260,7 +216,5 @@ class UserCardView: UIView {
             $0.left.equalToSuperview().inset(15)
             $0.right.equalToSuperview().inset(15)
         }
-        
     }
-
 }

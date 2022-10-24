@@ -30,7 +30,6 @@ class UserCardVC: UIViewController {
     }
     
     func sendInfo(setUser: User) {
-        print("URL pict vc", setUser.pictureURL as Any)
         cardView.sendInfo(setUser: setUser)
     }
 }

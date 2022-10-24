@@ -4,7 +4,6 @@
 //
 //  Created by Stepanyan Arman  on 19.10.2022.
 //
-
 import Foundation
 
 struct ParserModelArray: Decodable {
@@ -41,7 +40,6 @@ class UserParserModel: Decodable {
     var dob: userDob
     var picture: userPicture
 
-    
     init(gender: String,  name: userName,  location: userLocation,  email: String,  dob: userDob,  picture: userPicture) {
         self.gender = gender
         self.name = name
@@ -50,6 +48,5 @@ class UserParserModel: Decodable {
         self.dob = dob
         self.picture = picture
     }
-    
 }
 

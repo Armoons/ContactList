@@ -10,7 +10,6 @@ import Foundation
 class Parser {
     
     typealias ResultCompletion = (Result<[UserParserModel], Error>) -> ()
-    
     private static let url = URL(string: "https://randomuser.me/api/?inc=gender,name,picture,dob,email,location&results=15")
 
     func getInfo(completion: @escaping ResultCompletion) {

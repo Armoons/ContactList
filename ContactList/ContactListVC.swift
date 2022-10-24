@@ -125,7 +125,9 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        parser.getInfo()
+        let userCard = UserCardVC()
+        userCard.sendInfo(setUser: userModelsArray[indexPath.row])
+        self.show(userCard, sender: self)
         
     }
     

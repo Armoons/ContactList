@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SimpleImageViewer
 
 class UserCardVC: UIViewController {
     
@@ -17,13 +18,19 @@ class UserCardVC: UIViewController {
     }
     
     override func viewDidLoad() {
-            super.viewDidLoad()
-
+        super.viewDidLoad()
+        
+        cardView.completion = { image in
+            let configuration = ImageViewerConfiguration { config in
+                config.imageView = image
+            }
+            let imageViewerController = ImageViewerController(configuration: configuration)
+            self.present(imageViewerController, animated: true)
         }
-
+    }
+    
     func sendInfo(setUser: User) {
         print("URL pict vc", setUser.pictureURL as Any)
         cardView.sendInfo(setUser: setUser)
     }
-    
 }

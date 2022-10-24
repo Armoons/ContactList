@@ -1,20 +1,24 @@
 PODS:
   - Kingfisher (7.1.1)
+  - SimpleImageViewer (1.1.1)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Kingfisher (~> 7.0)
+  - SimpleImageViewer
   - SnapKit
 
 SPEC REPOS:
   trunk:
     - Kingfisher
+    - SimpleImageViewer
     - SnapKit
 
 SPEC CHECKSUMS:
   Kingfisher: f738f9c4a3415823b8e2985d10aa2d6a9f37bc4d
+  SimpleImageViewer: 34c3a2cde2d9ac022146772cefc27fca14b0c8b1
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: ed5f8b405aa1f7257547772aad8aa6b84d453c1e
+PODFILE CHECKSUM: 06e669360bb926e25f2287772e06f78abdf18ed2
 
 COCOAPODS: 1.11.3

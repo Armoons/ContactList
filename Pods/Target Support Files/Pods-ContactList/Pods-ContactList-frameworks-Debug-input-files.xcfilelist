@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-ContactList/Pods-ContactList-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
+${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework

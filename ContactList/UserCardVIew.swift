@@ -12,13 +12,23 @@ import Kingfisher
 class UserCardView: UIView {
     
     var userInfo: User = User()
+    var completion: ((UIImageView)->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .white
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        avaImageView.isUserInteractionEnabled = true
+        avaImageView.addGestureRecognizer(tapGestureRecognizer)
 
         self.setupConstraints()
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        completion!(tappedImage)
     }
     
     required init?(coder: NSCoder) {
@@ -161,7 +171,7 @@ class UserCardView: UIView {
         
         avaImageView.snp.makeConstraints{
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(50)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(15)
             $0.width.height.equalTo(250)
         }
         

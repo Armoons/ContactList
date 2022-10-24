@@ -8,6 +8,7 @@ target 'ContactList' do
   # Pods for ContactList
   pod 'Kingfisher', '~> 7.0'
   pod 'SnapKit'
+  pod 'SimpleImageViewer'
 
 
 

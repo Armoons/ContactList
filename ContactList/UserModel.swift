@@ -22,7 +22,6 @@ struct userLocation: Decodable {
 
 struct userTimezone: Decodable {
     let offset: String
-    let description: String
 }
 
 struct userDob: Decodable {

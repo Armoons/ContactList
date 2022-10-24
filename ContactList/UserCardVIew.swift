@@ -61,7 +61,7 @@ class UserCardView: UIView {
     private let locationLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19)
-        label.text = "Location: "
+        label.text = "Time: "
         label.textColor = .black
         return label
     }()
@@ -115,7 +115,7 @@ class UserCardView: UIView {
         else {
             self.genderImageView.image = UIImage(named: "male")
         }
-            
+        
         // name
         nameLabel.text?.append(userInfo.name!.replacingOccurrences(of: "@", with: " "))
         
@@ -129,7 +129,7 @@ class UserCardView: UIView {
         let date = "\(result![2]).\(result![1]).\(result![0])"
         
         dobLabel.text?.append("\(date) (\(age!.first ?? ""))")
-
+        
         //email
         emailLabel.text?.append(userInfo.email!)
         
@@ -139,12 +139,91 @@ class UserCardView: UIView {
         }
         
         //location
-        let locDate = Date()
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: locDate)
-        let minutes = calendar.component(.minute, from: locDate)
-        locationLabel.text?.append("\(hour) \(minutes)")
+        var offset = userInfo.location ?? ""
+        let utcDateFormatter = DateFormatter()
+        utcDateFormatter.dateStyle = .medium
+        utcDateFormatter.timeStyle = .medium
+        utcDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        utcDateFormatter.dateFormat = "HH:mm"
+        let UTC = Date()
+        
+        let dateFormatter = DateFormatter()
+        //        let sign = offset.substring(from: offset.startIndex)
+        let index = offset.index(offset.startIndex, offsetBy: 0)
+        let sign = offset.remove(at:index)
+        dateFormatter.dateFormat = "HH:mm"
+        var splittedUtc = utcDateFormatter.string(from: UTC).split(separator: ":")
+        var splittedOffset = offset.split(separator: ":")
+        var timeMinute = 0
+        var timeHours = 0
+        let utsHours = Int(splittedUtc[0])!
+        let utsMinutes = Int(splittedUtc[1])!
+        let offsetHours = Int(splittedOffset[0])!
+        let offsetMinutes = Int(splittedOffset[1])!
+        
+        print("UTC", splittedUtc)
+        print("sign", sign)
+        print("timeWithoutSign", splittedOffset)
+        
+        if sign == "+" {
+            if utsMinutes + offsetMinutes >= 60 {
+                timeHours = (offsetHours + utsHours + 1) % 24
+            } else {
+                timeHours += (offsetHours + utsHours) % 24
+            }
+            timeMinute = (utsMinutes + offsetMinutes) % 60
+        } else {
+            if utsMinutes - offsetMinutes <= 0 {
+                timeMinute = 60 + utsMinutes - offsetMinutes
+                timeHours = (24 + utsHours - offsetHours - 1) % 24
+            } else {
+                timeMinute = utsMinutes - offsetMinutes
+                timeHours = (24 + utsHours - offsetHours) % 24
+            }
+        }
+        print((20-30))
+        if timeMinute < 10 && timeHours < 10{
+            locationLabel.text?.append("0\(timeHours):0\(timeMinute)")
+        } else if timeMinute < 10{
+            locationLabel.text?.append("\(timeHours):0\(timeMinute)")
+        } else if timeHours < 10{
+            locationLabel.text?.append("0\(timeHours):\(timeMinute)")
+        } else {
+            locationLabel.text?.append("\(timeHours):\(timeMinute)")
 
+        }
+
+        
+        
+    }
+    
+    func localToUTC(dateStr: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.calendar = Calendar.current
+        dateFormatter.timeZone = TimeZone.current
+        
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            dateFormatter.dateFormat = "H:mm:ss"
+        
+            return dateFormatter.string(from: date)
+        }
+        return nil
+    }
+    
+    func utcToLocal(dateStr: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "H:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = "h:mm a"
+        
+            return dateFormatter.string(from: date)
+        }
+        return nil
     }
     
     

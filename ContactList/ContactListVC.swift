@@ -111,7 +111,7 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         user.dob = "\(parserModel.dob.age)@\(parserModel.dob.date)"
         user.email = parserModel.email
         user.gender = parserModel.gender
-        user.location = "\(parserModel.location.timezone.description)@\(parserModel.location.timezone.offset)"
+        user.location = parserModel.location.timezone.offset
         user.pictureURL = URL(string: parserModel.picture.thumbnail)
         
         return user

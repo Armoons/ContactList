@@ -9,35 +9,31 @@ import Foundation
 
 class Parser {
     
-    let url = URL(string: "https://randomuser.me/api/?inc=gender,name,picture,dob,email,location&results=15")
-    var completion: (([UserParserModel])->())?
+    typealias ResultCompletion = (Result<[UserParserModel], Error>) -> ()
     
-    func getInfo() {
-        guard let url = url else { return }
+    private static let url = URL(string: "https://randomuser.me/api/?inc=gender,name,picture,dob,email,location&results=15")
+
+    func getInfo(completion: @escaping ResultCompletion) {
+        guard let url = Self.url else { return }
+        
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print("ERROR", error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
                 return
             }
-            
             guard let data = data else { return }
             
             do {
                 let userInfo = try JSONDecoder().decode(ParserModelArray.self, from: data)
-//                for i in userInfo.results {
-//                    print(i.name)
-//                    print(i.dob)
-//                    print(i.email)
-//                    print(i.gender)
-//                    print(i.location)
-//                    print(i.picture)
-//                }
                 DispatchQueue.main.async {
-                    let info = userInfo.results 
-                    self.completion?(info)
+                    completion(.success(userInfo.results))
                 }
             }  catch {
-                print(error)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }.resume()
     }

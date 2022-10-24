@@ -10,7 +10,7 @@ import SnapKit
 
 class UserCardVC: UIViewController {
     
-    let cardView = UserCardVIew()
+    let cardView = UserCardView()
     
     override func loadView() {
         self.view = cardView
@@ -22,7 +22,7 @@ class UserCardVC: UIViewController {
         }
 
     func sendInfo(setUser: User) {
-        print("URL pict vc", setUser.pictureURL)
+        print("URL pict vc", setUser.pictureURL as Any)
         cardView.sendInfo(setUser: setUser)
     }
     

@@ -1,5 +1,5 @@
 //
-//  UserCardVIew.swift
+//  UserCardView.swift
 //  ContactList
 //
 //  Created by Stepanyan Arman  on 24.10.2022.
@@ -9,12 +9,14 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class UserCardVIew: UIView {
+class UserCardView: UIView {
     
     var userInfo: User = User()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        backgroundColor = .white
 
         self.setupConstraints()
     }
@@ -34,8 +36,7 @@ class UserCardVIew: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19)
         label.text = "Name: "
-        label.textAlignment = .left
-        label.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
+        label.textColor = .black
         return label
     }()
     
@@ -43,6 +44,7 @@ class UserCardVIew: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19)
         label.text = "Email: "
+        label.textColor = .black
         return label
     }()
     
@@ -50,6 +52,7 @@ class UserCardVIew: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19)
         label.text = "Location: "
+        label.textColor = .black
         return label
     }()
     
@@ -57,6 +60,7 @@ class UserCardVIew: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19)
         label.text = "DOB: "
+        label.textColor = .black
         return label
     }()
     
@@ -64,6 +68,7 @@ class UserCardVIew: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19)
         label.text = "Gender: "
+        label.textColor = .black
         return label
     }()
     
@@ -122,6 +127,13 @@ class UserCardVIew: UIView {
         if (userInfo.pictureURL != nil) {
             avaImageView.kf.setImage(with: userInfo.pictureURL)
         }
+        
+        //location
+        let locDate = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: locDate)
+        let minutes = calendar.component(.minute, from: locDate)
+        locationLabel.text?.append("\(hour) \(minutes)")
 
     }
     
@@ -149,7 +161,7 @@ class UserCardVIew: UIView {
         
         avaImageView.snp.makeConstraints{
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(15)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).inset(50)
             $0.width.height.equalTo(250)
         }
         

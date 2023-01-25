@@ -14,27 +14,6 @@ class UserCardView: UIView {
     private var userInfo: User = User()
     var completion: ((UIImageView)->())?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        backgroundColor = .white
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        avaImageView.isUserInteractionEnabled = true
-        avaImageView.addGestureRecognizer(tapGestureRecognizer)
-
-        self.setupConstraints()
-    }
-    
-    @objc private func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
-        completion!(tappedImage)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private let avaImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "testImage")
@@ -105,6 +84,27 @@ class UserCardView: UIView {
         stack.spacing = 10
         return stack
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        backgroundColor = .white
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        avaImageView.isUserInteractionEnabled = true
+        avaImageView.addGestureRecognizer(tapGestureRecognizer)
+
+        self.setupConstraints()
+    }
+    
+    @objc private func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        completion!(tappedImage)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private func setupUI() {
         

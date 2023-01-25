@@ -55,7 +55,7 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             
             switch result {
             case .failure:
-                self.canLoadNext = false
+//                self.canLoadNext = false
                 self.loadCachedData()
             case .success(let data):
                 let users = data.map(self.transferParserModelToUser(parserModel:))
@@ -72,7 +72,9 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        userModelsArray.count
+        print(userModelsArray.count)
+        return userModelsArray.count
+        
     }
      
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,6 +88,14 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if Reachability.isConnectedToNetwork(){
+            canLoadNext = true
+            print("Internet Connection Available!")
+        }else{
+            canLoadNext = false
+            print("Internet Connection not Available!")
+        }
+        print("load \(canLoadNext)")
         guard canLoadNext else { return }
         
         if indexPath.row == userModelsArray.count - 4 {
@@ -101,7 +111,7 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         let userCard = UserCardVC()
         userCard.sendInfo(setUser: userModelsArray[indexPath.row])
         self.present(userCard, animated: true)
-        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func transferParserModelToUser(parserModel: UserParserModel) -> User {
@@ -138,5 +148,43 @@ class ContactListVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         users.forEach(deleteUser(user:))
         
         userModelsArray.removeAll()
+    }
+}
+
+import SystemConfiguration
+
+public class Reachability {
+
+    class func isConnectedToNetwork() -> Bool {
+
+        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
+            return false
+        }
+
+        /* Only Working for WIFI
+        let isReachable = flags == .reachable
+        let needsConnection = flags == .connectionRequired
+
+        return isReachable && !needsConnection
+        */
+
+        // Working for Cellular and WIFI
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        let ret = (isReachable && !needsConnection)
+
+        return ret
+
     }
 }
